@@ -9,8 +9,13 @@
         
         <h1>Experiments currently in the database</h1>
         
-        <p>as table</p>
+        <p>Please click below for more information</p>
         <table>
+            <tr>
+                <td>Name of experiment:</td>
+                <td>Subject:</td>
+                <td>Duration (in minutes):</td>
+            </tr>
             <tr th:each="experiment: ${experiments}">
                 <td><a th:href="@{/experiment/{id}(id=${experiment.id})}">
                     <span th:text="${experiment.name}">Experiment name</span></a>
@@ -24,17 +29,6 @@
             </tr>
         </table>
         
-        <p>as list</p>
-        <ul>
-            <li th:each="experiment: ${experiments}">
-                <a th:href="@{/experiment/{id}(id=${experiment.id})}">
-                    <span th:text="${experiment.name}">Experiment name</span>
-                    <span th:text="${experiment.subject}">Experiment subject</span>
-                    <span th:text="${experiment.duration}">Experiment duration</span>
-                </a>
-            </li>
-        </ul> 
-        
         <h1>Create new experiment</h1>
         
         <p>On this form you can create an experiment. Basically, here, you are creating a 
@@ -42,17 +36,16 @@
             please go to the page assigned for this experiment to give further 
             information.</p>
         
-        <form th:action="@{/experiments}" th:object="${experiment}" method="POST">
+        <p>Both fields below must be filled to create an experiment!</p>
+        <form th:action="@{/experiments}"  method="POST">
             <table>
                 <tr>
                     <td>Name of experiment:</td>
-                    <td><input type="text" name="*{name}"/></td>
-                    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error message</td>
+                    <td><input type="text" name="name"/></td>
                 </tr>
                 <tr>
-                    <td>Subject of experiment:</td>
-                    <td><input type="text" name="*{subject}"/></td>
-                    <td th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}">Subject error message</td>
+                    <td>Duration of experiment (in minutes):</td>
+                    <td><input type="text" name="duration"/></td>
                 </tr>
                 <tr>
                     <td><button type="submit">Create experiment</button></td>

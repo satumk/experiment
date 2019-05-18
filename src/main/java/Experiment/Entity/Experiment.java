@@ -9,10 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Data
@@ -26,10 +28,12 @@ public class Experiment extends AbstractPersistable<Long>{
     @Column(unique = true)
     private String name;
     
-    @NotEmpty
-    @ManyToOne
-    private Subject subject;
-    
+    @NotNull
+    @Range(min=1, max=10000)
+    private Integer duration;
+        
+    private String subject;
+
     @OneToMany(mappedBy="experiment")
     private List<Direction> directions = new ArrayList<>();
     
