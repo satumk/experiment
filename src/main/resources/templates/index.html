@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head" lang="en">
+        <meta charset="UTF-8" />
+        <title>Experiment</title>
+    </head>
+    <body>
+
+        <div th:replace="fragments/layout :: header"></div>
+        
+        <h1>Welcome to Experiment</h1>
+        
+        <p>Experiment is a platform for experiments that can be conducted with kids.
+        These experiments are designed to be done with a responsible parent and
+        the platform waives all responsibility for accidents. The platform contains
+        (eventually) experiments mainly in Physics, Chemistry and Biology. </p>
+        
+        <h2>Log in</h2>
+        
+        <form th:action="@{/login}" method="POST">
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type="text" name="username"/></td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="text" name="password"/></td>    
+                </tr>
+                <tr>
+                    <td><input type="submit" value="login"/></td>
+                </tr>
+            </table>    
+        </form>
+        
+        <h3>Don't have an account yet? Please <a th:href="@{/register}">register</a></h3>
+        
+        <div th:replace="fragments/layout :: footer"></div>
+        
+    </body>
+</html>
+
+

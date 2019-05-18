@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragmet="head" lang="en">
+        <meta charset="UTF-8" />
+        <title>Experiment</title>
+    </head>
+    
+    <body>
+        <header th:fragment="header">
+            <ul>
+                <li><a th:href="@{/}">Welcome/Login</a></li>
+                <li><a th:href="@{/experiments}">Experiments</a></li>
+                <li><a th:href="@{/search}">Search</a></li>
+                <li><a th:href="@{/account}">Own info</a></li>
+                <li><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </header>
+        
+        
+        <footer th:fragment="footer">
+            <p>Copyright by Satu Korhonen 2019</p>
+            <a th:href="@{/}">Back to beginning</a>
+        </footer>
+            
+    </body>
+</html>
