@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head" lang="en">
+        <meta charset="UTF-8" />
+        <title>Experiment</title>
+    </head>
+    <body>
+        <div th:replace="fragments/layout :: header"></div>
+        
+        <h1 th:text="${name}">Name</h1>
+        
+        <h3>Information about the experiment</h3>
+        
+        <table>
+            <tr>
+                <td>Subject: </td>
+                <td th:text="${subject}">Subject</td>
+            </tr>
+            <tr>
+                <td>Duration: </td>
+                <td th:text="${duration}">Duration</td>
+            </tr>
+        </table>
+        
+        <h3>Materials required</h3>
+        
+        <table>
+            <tr>
+                <td>Material:</td>
+                <td>Quantity:</td>
+            </tr>
+            <tr th:each="material: ${materials}">
+                <td><span th:text="${material.name}">Material name</span></td>
+                <td><span th:text="${material.amount}">Material amount</span></td>
+            </tr>
+        </table>
+        
+        <h3>Directions</h3>
+        
+        <ol>
+            <li th:each="direction : ${directions}">
+                <span th:text="${direction.direction}">Direction</span>
+            </li>  
+        </ol>
+        
+        <h3>Explanation</h3>
+        
+        <p th:text="${explanation}">Explanation</p>
+        
+        <h3>Notes</h3>
+        
+        <p th:text="${notes}">Notes</p>
+        
+        <h2>Add, edit or delete the experiment</h2>
+       
+        <h3>Add subject</h3>
+        
+        <p>If there already is a subject, this will replace it</p>
+        <form th:action="@{/experiments/{id}/subject (id=${id})}" method="POST">
+            <span>Subject: </span>
+            <input type="text" name="subjectAdd"/>
+            <input type="submit" name="Add subject"/>
+        </form>
+        
+        <h3>Add materials</h3>
+        
+        <form th:action="@{/experiments/{id}/material (id=${id})}" method="POST">
+            <span>Material: </span>
+            <input type="text" name="materialAdd"/>
+            <span>Quantity (as text): </span>
+            <input type="text" name="quantityAdd"/>
+            <input type="submit" name="Add material"/>
+        </form>
+        
+        <h3>Add directions</h3>
+        
+        <form th:action="@{/experiments/{id}/direction (id=${id})}" method="POST">
+            <span>Direction: </span>
+            <input type="text" name="directionAdd"/>
+            <input type="submit" name="Add direction"/>
+        </form>
+        
+        <h3>Add/edit an explanation of the science behind the experiment</h3>
+        
+        <p>If there already is an explanation, this will replace it</p>
+        <form th:action="@{/experiments/{id}/explanation (id=${id})}" method="POST">
+            <span>Explanation: </span>
+            <input type="text" name="explanationAdd"/>
+            <input type="submit" name="Add explanation"/>
+        </form>
+        
+        <h3>Add/edit notes</h3>
+        
+        <p>If there already are notes, this will replace them</p>
+        <form th:action="@{/experiments/{id}/notes (id=${id})}" method="POST">
+            <span>Notes: </span>
+            <input type="text" name="notesAdd"/>
+            <input type="submit" name="Add notes"/>
+        </form>
+        
+        <div th:replace="fragments/layout :: footer"></div>
+    </body>
+</html>

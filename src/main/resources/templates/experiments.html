@@ -17,7 +17,7 @@
                 <td>Duration (in minutes):</td>
             </tr>
             <tr th:each="experiment: ${experiments}">
-                <td><a th:href="@{/experiment/{id}(id=${experiment.id})}">
+                <td><a th:href="@{/experiments/{id}(id=${experiment.id})}">
                     <span th:text="${experiment.name}">Experiment name</span></a>
                 </td>
                 <td>
