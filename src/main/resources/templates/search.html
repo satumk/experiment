@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head" lang="en">
+        <meta charset="UTF-8" />
+        <title>Experiment</title>
+    </head>
+    <body>
+        <div th:replace="fragments/layout :: header"></div>
+        
+        <h1>Search our database for experiments</h1>
+        
+        <h3>Search by duration:</h3>
+        <form th:action="@{/search/duration}" method="POST">
+            <span>What is the maximum desired duration?</span>
+            <input type="text" name="duration"/>
+            <input type="submit" value="Search"/>    
+        </form>
+        
+        <h3>Search by material:</h3>
+        <form th:action="@{/search/material}" method="POST">
+            <span>Which material do you wish to use? </span>
+            <input type="text" name="material"/>
+            <input type="submit" value="Search"/>    
+        </form>
+        
+        <h2>Results of the search</h2>
+        
+        <ul>
+            <li th:each="experiment: ${experiments}">
+                <a th:href="@{/experiments/{id}(id=${experiment.id})}"> 
+                    <span th:text="${experiment.name}">name</span>
+                </a>
+            </li>
+        </ul>
+        
+        
+        <div th:replace="fragments/layout :: footer"></div>
+    </body>
+</html>

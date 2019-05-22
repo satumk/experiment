@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,6 +19,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+/*
+@NamedEntityGraph(name="Experiment.directionsAndMaterials",
+        attributeNodes={@NamedAttributeNode("directions"), @NamedAttributeNode("materials")})
+*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
