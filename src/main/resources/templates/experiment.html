@@ -98,6 +98,13 @@
             <input type="submit" name="Add notes"/>
         </form>
         
+        <h3>Delete this experiment</h3>
+        <p>Please be sure! This action cannot be undone.</p>
+        <form action="#" th:action="@{'/delete/{id}'(id=${id})}" th:method="delete">
+            <input type="hidden" name="_method" value="delete"/>
+            <button type="submit" id="submitButton">I am sure I want to delete this experiment</button>
+        </form>
+              
         <div th:replace="fragments/layout :: footer"></div>
     </body>
 </html>

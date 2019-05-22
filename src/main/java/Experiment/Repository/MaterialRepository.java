@@ -11,5 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface MaterialRepository extends JpaRepository<Material, Long>{
 
     public List<Material> findByNameIgnoreCase(String material);
+
+    public void deleteByExperiment(Experiment exp);
       
 }

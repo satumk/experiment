@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DirectionRepository extends JpaRepository<Direction, Long>{
+
+    public void deleteByExperiment(Experiment exp);
     
 }
