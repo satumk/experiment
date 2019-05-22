@@ -142,4 +142,13 @@ public class ExperimentController {
       
         return "redirect:/experiments";
     }
+    
+    @Transactional
+    @RequestMapping(value="/delete/{id}/material/{materialid}", method = RequestMethod.DELETE)
+    public String deleteMaterial(@PathVariable Long id, @PathVariable Long materialid) {
+        
+        materialRepository.deleteById(materialid);
+        
+        return "redirect:/experiments/" + id;
+    }
 }
