@@ -19,10 +19,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-/*
-@NamedEntityGraph(name="Experiment.directionsAndMaterials",
-        attributeNodes={@NamedAttributeNode("directions"), @NamedAttributeNode("materials")})
-*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -47,10 +43,12 @@ public class Experiment extends AbstractPersistable<Long>{
     private List<Material> materials = new ArrayList<>();
    
     private String explanation;
+    
     private String notes;
    
     @OneToMany(mappedBy = "experiment", fetch = FetchType.LAZY)
     List<GalleryFileObject> gallery = new ArrayList<>();
     
-
+    private String creator;
+    
 }

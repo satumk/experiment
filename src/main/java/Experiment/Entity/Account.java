@@ -4,7 +4,9 @@ package Experiment.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
@@ -35,9 +37,12 @@ public class Account extends AbstractPersistable<Long>{
     private String username;
     
     @NotEmpty
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 100)
     private String password;
     
-    @OneToMany
+    @ManyToMany
     private List<Experiment> experiments = new ArrayList<>();
+    
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> authorities = new ArrayList<>();
 }

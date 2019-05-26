@@ -1,14 +1,18 @@
 
 package Experiment.Controller;
 
+import Experiment.Entity.Account;
 import Experiment.Entity.Direction;
 import Experiment.Entity.Experiment;
 import Experiment.Entity.Material;
+import Experiment.Repository.AccountRepository;
 import Experiment.Repository.DirectionRepository;
 import Experiment.Repository.ExperimentRepository;
 import Experiment.Repository.MaterialRepository;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +34,9 @@ public class ExperimentController {
     @Autowired
     private MaterialRepository materialRepository;
     
+    @Autowired
+    private AccountRepository accountRepository;
+    
     @GetMapping("/experiments")
     public String viewExperiments(Model model) {
         
@@ -41,9 +48,13 @@ public class ExperimentController {
     @PostMapping("/experiments")
     public String create(@RequestParam String name, @RequestParam Integer duration) {
         
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        
         Experiment add = new Experiment();
         add.setName(name);
         add.setDuration(duration);
+        add.setCreator(username);
         
         experimentRepository.save(add);
         
@@ -62,6 +73,7 @@ public class ExperimentController {
         model.addAttribute("directions", exp.getDirections());
         model.addAttribute("explanation", exp.getExplanation());
         model.addAttribute("notes", exp.getNotes());
+        model.addAttribute("creator", exp.getCreator());
 
         return "experiment";
     }
@@ -148,6 +160,20 @@ public class ExperimentController {
     public String deleteMaterial(@PathVariable Long id, @PathVariable Long materialid) {
         
         materialRepository.deleteById(materialid);
+        
+        return "redirect:/experiments/" + id;
+    }
+    
+    @PostMapping("/experiments/{id}/add")
+    public String addToList(@PathVariable Long id) {
+        Experiment addingToList = experimentRepository.getOne(id);
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        
+        Account current = accountRepository.findByUsername(username);
+        current.getExperiments().add(addingToList);
+        accountRepository.save(current);
         
         return "redirect:/experiments/" + id;
     }

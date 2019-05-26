@@ -9,9 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExperimentRepository extends JpaRepository<Experiment, Long>{
-    
-    @EntityGraph(value = "Experiment.directionsAndMaterials")
-    List<Experiment> findByIdNotNull();
 
     public List<Experiment> findByDurationLessThan(int durationInt);
 

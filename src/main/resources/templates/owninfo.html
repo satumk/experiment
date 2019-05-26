@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/layout :: head" lang="en">
+        <meta charset="UTF-8" />
+        <title>Experiment</title>
+    </head>
+    <body>
+
+        <div th:replace="fragments/layout :: header"></div>
+        
+        <h1 th:text="${name}">Name</h1>
+        
+        <h2>Your info</h2>
+        
+        <table>
+            <tr>
+                <td>Name: </td>
+                <td th:text="${name}">Name</td> 
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td th:text="${email}">Email</td>
+                
+            </tr>
+            <tr>
+                <td>Username: </td>
+                <td th:text="${username}">Username</td>
+            </tr>
+        </table>
+        
+        <h3>Experiments on your list</h3>
+        <table>
+            <tr>
+                <td>Name of experiment:</td>
+                <td>Subject:</td>
+                <td>Duration (in minutes):</td>
+            </tr>
+            <tr th:each="experiment: ${experiments}">
+                <td><a th:href="@{/experiments/{id}(id=${experiment.id})}">
+                    <span th:text="${experiment.name}">Experiment name</span></a>
+                </td>
+                <td>
+                    <span th:text="${experiment.subject}">Experiment subject</span>
+                </td>
+                <td>
+                    <span th:text="${experiment.duration}">Experiment duration</span>
+                </td>
+            </tr>
+        </table>
+        
+        <div th:replace="fragments/layout :: footer"></div>
+        
+    </body>
+</html>
