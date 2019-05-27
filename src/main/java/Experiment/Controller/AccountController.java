@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AccountController {
@@ -30,7 +31,7 @@ public class AccountController {
     }
     
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute Account account, BindingResult bindingResult) {
+    public String register(@Valid @ModelAttribute Account account, BindingResult bindingResult, @RequestParam String adminReason) {
         if (bindingResult.hasErrors()) {
             return "register";
         }
@@ -41,6 +42,11 @@ public class AccountController {
 */
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         account.getAuthorities().add("USER");
+        
+        if (!adminReason.isEmpty()) {
+            account.getAuthorities().add("ADMIN");
+        }
+        
         accountRepository.save(account);
         
         return "success";

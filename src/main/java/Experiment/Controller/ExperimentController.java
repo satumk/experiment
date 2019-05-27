@@ -11,6 +11,7 @@ import Experiment.Repository.ExperimentRepository;
 import Experiment.Repository.MaterialRepository;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class ExperimentController {
         return "experiments"; 
     }
     
+    @Secured("ADMIN")
     @PostMapping("/experiments")
     public String create(@RequestParam String name, @RequestParam Integer duration) {
         
@@ -78,6 +80,7 @@ public class ExperimentController {
         return "experiment";
     }
     
+    @Secured("ADMIN")
     @PostMapping("/experiments/{id}/subject")
     public String addSubject(@PathVariable Long id, @RequestParam String subjectAdd) {
         
@@ -89,6 +92,7 @@ public class ExperimentController {
         return "redirect:/experiments/" + exp.getId();
     }
     
+    @Secured("ADMIN")
     @PostMapping("/experiments/{id}/material")
     public String addMaterial(@PathVariable Long id, @RequestParam String materialAdd, @RequestParam String quantityAdd) {
         
@@ -104,6 +108,7 @@ public class ExperimentController {
         return "redirect:/experiments/" + exp.getId();
     }
     
+    @Secured("ADMIN")
     @PostMapping("/experiments/{id}/direction")
     public String addDirection(@PathVariable Long id, @RequestParam String directionAdd) {
         
@@ -118,6 +123,7 @@ public class ExperimentController {
         return "redirect:/experiments/" + exp.getId();
     }
     
+    @Secured("ADMIN")
     @PostMapping("/experiments/{id}/explanation")
     public String addExplanation(@PathVariable Long id, @RequestParam String explanationAdd) {
         
@@ -130,6 +136,7 @@ public class ExperimentController {
         return "redirect:/experiments/" + exp.getId();
     }
     
+    @Secured("ADMIN")
     @PostMapping("/experiments/{id}/notes")
     public String addNotes(@PathVariable Long id, @RequestParam String notesAdd) {
         
@@ -142,6 +149,7 @@ public class ExperimentController {
         return "redirect:/experiments/" + exp.getId();
     }
     
+    @Secured("ADMIN")
     @Transactional
     @RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
     public String delete(@PathVariable Long id) {
@@ -155,6 +163,7 @@ public class ExperimentController {
         return "redirect:/experiments";
     }
     
+    @Secured("ADMIN")
     @Transactional
     @RequestMapping(value="/delete/{id}/material/{materialid}", method = RequestMethod.DELETE)
     public String deleteMaterial(@PathVariable Long id, @PathVariable Long materialid) {

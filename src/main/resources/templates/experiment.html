@@ -69,60 +69,62 @@
             <input type="submit" value="Add to my list"/>
         </form>
         
-        <h2>Add, edit or delete the experiment</h2>
-       
-        <h3>Add subject</h3>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <h2>Add, edit or delete the experiment</h2>
+
+            <h3>Add subject</h3>
+
+            <p>If there already is a subject, this will replace it</p>
+            <form th:action="@{/experiments/{id}/subject (id=${id})}" method="POST">
+                <span>Subject: </span>
+                <input type="text" name="subjectAdd"/>
+                <input type="submit" name="Add subject"/>
+            </form>
+
+            <h3>Add materials</h3>
+
+            <form th:action="@{/experiments/{id}/material (id=${id})}" method="POST">
+                <span>Material: </span>
+                <input type="text" name="materialAdd"/>
+                <span>Quantity (as text): </span>
+                <input type="text" name="quantityAdd"/>
+                <input type="submit" name="Add material"/>
+            </form>
+
+            <h3>Add directions</h3>
+
+            <form th:action="@{/experiments/{id}/direction (id=${id})}" method="POST">
+                <span>Direction: </span>
+                <input type="text" name="directionAdd"/>
+                <input type="submit" name="Add direction"/>
+            </form>
+
+            <h3>Add/edit an explanation of the science behind the experiment</h3>
+
+            <p>If there already is an explanation, this will replace it</p>
+            <form th:action="@{/experiments/{id}/explanation (id=${id})}" method="POST">
+                <span>Explanation: </span>
+                <input type="text" name="explanationAdd"/>
+                <input type="submit" name="Add explanation"/>
+            </form>
+
+            <h3>Add/edit notes</h3>
+
+            <p>If there already are notes, this will replace them</p>
+            <form th:action="@{/experiments/{id}/notes (id=${id})}" method="POST">
+                <span>Notes: </span>
+                <input type="text" name="notesAdd"/>
+                <input type="submit" name="Add notes"/>
+            </form>
+
+            <h3>Delete this experiment</h3>
+            <p>Please be sure! This action cannot be undone.</p>
+            <form action="#" th:action="@{'/delete/{id}'(id=${id})}" th:method="delete">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" id="submitButton">I am sure I want to delete this experiment</button>
+            </form>
+        </div>  
         
-        <p>If there already is a subject, this will replace it</p>
-        <form th:action="@{/experiments/{id}/subject (id=${id})}" method="POST">
-            <span>Subject: </span>
-            <input type="text" name="subjectAdd"/>
-            <input type="submit" name="Add subject"/>
-        </form>
-        
-        <h3>Add materials</h3>
-        
-        <form th:action="@{/experiments/{id}/material (id=${id})}" method="POST">
-            <span>Material: </span>
-            <input type="text" name="materialAdd"/>
-            <span>Quantity (as text): </span>
-            <input type="text" name="quantityAdd"/>
-            <input type="submit" name="Add material"/>
-        </form>
-        
-        <h3>Add directions</h3>
-        
-        <form th:action="@{/experiments/{id}/direction (id=${id})}" method="POST">
-            <span>Direction: </span>
-            <input type="text" name="directionAdd"/>
-            <input type="submit" name="Add direction"/>
-        </form>
-        
-        <h3>Add/edit an explanation of the science behind the experiment</h3>
-        
-        <p>If there already is an explanation, this will replace it</p>
-        <form th:action="@{/experiments/{id}/explanation (id=${id})}" method="POST">
-            <span>Explanation: </span>
-            <input type="text" name="explanationAdd"/>
-            <input type="submit" name="Add explanation"/>
-        </form>
-        
-        <h3>Add/edit notes</h3>
-        
-        <p>If there already are notes, this will replace them</p>
-        <form th:action="@{/experiments/{id}/notes (id=${id})}" method="POST">
-            <span>Notes: </span>
-            <input type="text" name="notesAdd"/>
-            <input type="submit" name="Add notes"/>
-        </form>
-        
-        <h3>Delete this experiment</h3>
-        <p>Please be sure! This action cannot be undone.</p>
-        <form action="#" th:action="@{'/delete/{id}'(id=${id})}" th:method="delete">
-            <input type="hidden" name="_method" value="delete"/>
-            <button type="submit" id="submitButton">I am sure I want to delete this experiment</button>
-        </form>
-              
         <div th:replace="fragments/layout :: footer"></div>
     </body>
 </html>

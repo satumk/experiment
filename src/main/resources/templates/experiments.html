@@ -29,30 +29,31 @@
             </tr>
         </table>
         
-        <h1>Create new experiment</h1>
-        
-        <p>On this form you can create an experiment. Basically, here, you are creating a 
-            page for this experiment. After you have submitted the information below,
-            please go to the page assigned for this experiment to give further 
-            information.</p>
-        
-        <p>Both fields below must be filled to create an experiment!</p>
-        <form th:action="@{/experiments}"  method="POST">
-            <table>
-                <tr>
-                    <td>Name of experiment:</td>
-                    <td><input type="text" name="name"/></td>
-                </tr>
-                <tr>
-                    <td>Duration of experiment (in minutes):</td>
-                    <td><input type="text" name="duration"/></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Create experiment</button></td>
-                </tr>
-            </table>
-        </form>
-      
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <h1>Create new experiment</h1>
+
+            <p>On this form you can create an experiment. Basically, here, you are creating a 
+                page for this experiment. After you have submitted the information below,
+                please go to the page assigned for this experiment to give further 
+                information.</p>
+
+            <p>Both fields below must be filled to create an experiment!</p>
+            <form th:action="@{/experiments}"  method="POST">
+                <table>
+                    <tr>
+                        <td>Name of experiment:</td>
+                        <td><input type="text" name="name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Duration of experiment (in minutes):</td>
+                        <td><input type="text" name="duration"/></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Create experiment</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
         <div th:replace="fragments/layout :: footer"></div>
     </body>
 </html>
